@@ -1,0 +1,198 @@
+html {
+    line-height: 1.5;
+    font-family: jetbrains-mono, ui-sans-serif, system-ui, sans-serif;
+    color: #ffffff;
+    background-color: #0a0a0a;
+}
+
+body {
+    margin: 0;
+    line-height: inherit;
+    font-family: "JetBrains Mono";
+    font-size: 22px;
+}
+
+/* Included all the CSS from the provided stylesheet */
+/* Header styles */
+.header {
+    position: fixed;
+    inset: 1rem 0 0;
+    z-index: 40;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(15,15,15);
+    border: 1px solid rgba(38,38,38,80);
+    border-color: rgb(38, 39, 44);
+    border-radius: 1.5rem; 
+    padding: 0 1rem;
+    box-shadow: 0 2px 8px rgba(38, 38, 38, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease-in-out;
+    max-width: 1168px;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    padding: 0 1rem;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #a0a0a0;
+    background: none;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.nav-button:hover {
+    color: #ffffff;
+    background-color: rgba(38,38,38,0.8);
+}
+
+/* Contact section specific styles */
+.contact-section {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+}
+
+.contact-container {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.contact-info {
+    background: rgb(15,15,15);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(38, 39, 44);
+}
+
+.contact-form {
+    background: rgb(15,15,15);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(38, 39, 44);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #a0a0a0;
+    font-size: 0.875rem;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background: #1a1a1a;
+    border: 1px solid rgb(38, 39, 44);
+    border-radius: 0.375rem;
+    color: #ffffff;
+    font-family: inherit;
+}
+
+.form-textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-button {
+    background-color: rgb(188, 131, 56);
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    color: #a0a0a0;
+}
+
+.contact-method svg {
+    width: 24px;
+    height: 24px;
+}
+
+.contact-heading {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.contact-subheading {
+    color: #a0a0a0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Footer styles */
+.footer-container {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.icon {
+    color: #a0a0a0;
+    transition: color 0.2s;
+}
+
+.icon:hover {
+    color: #ffffff;
+}
