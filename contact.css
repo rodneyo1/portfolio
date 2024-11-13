@@ -16,6 +16,7 @@ body {
 .contact-section {
     padding-top: 5rem;
     padding-bottom: 4rem;
+    min-height: 75vh;
 }
 
 .contact-container {
@@ -31,17 +32,19 @@ body {
     margin-top: 2rem;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     .contact-grid {
         grid-template-columns: 1fr 1fr;
     }
-}
+} */
 
 .contact-info {
+    justify-items: center;
     background: rgb(15,15,15);
     padding: 2rem;
     border-radius: 0.5rem;
     border: 1px solid rgb(38, 39, 44);
+    
 }
 
 .contact-form {
@@ -108,7 +111,7 @@ body {
     height: 1.5rem;
 }
 .contact-method :hover{
-    color: #ffffff;
+    color:rgb(188, 131, 56);
 }
 
 .contact-heading {
