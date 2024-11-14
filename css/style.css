@@ -365,56 +365,82 @@ body.slide-out-right {
 
 /* Skills Grid */
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-@media (max-width: 768px) {
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  /* flex-wrap: wrap; */
 }
 
 .skill-item {
-    background-color: #1a1a1a;
-    padding: 1.5rem;
-    border: 1px solid rgb(38, 39, 44);
-    border-radius: 0.5rem;
-    height: 100%;
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border: 1px solid rgb(38, 39, 44);
+  border-radius: 0.5rem;
+  height: 100%;
+  min-height: 16rem;
+  flex: 1 1 calc(33.33% - 1rem); /* 1 1 auto would also work */
+  min-width: 12.6rem;
+  justify-items: center;
 }
 
 .skill-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  justify-content: center;
 }
 
 .skill-list {
-    font-size: 0.9rem;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  font-size: 0.9rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .skill-list li {
-    color: #a0a0a0;
-    margin-bottom: 0.5rem;
+  color: #a0a0a0;
+  margin-bottom: 0.5rem;
 }
 
 .skill-list li:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
+
+@media (max-width: 768px) {
+  .skill-item {
+      flex: 1 1 calc(50% - 0.75rem);
+      min-width: 200px;
+      padding: 1.25rem;
+  }
+
+  .skill-title {
+      font-size: 0.9rem;
+  }
+
+  .skill-list {
+      font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-item {
+      flex: 1 1 100%;
+      min-height: 12rem;
+      min-width: 3rem;
+      padding: 0.2rem;
+      
+  }
+
+  .skill-title {
+      font-size: 0.65rem;
+  }
+
+  .skill-list {
+      font-size: 0.55rem;
+  }
+}
+
   
   /* Portfolio Section Styles */
   .portfolio-section {
