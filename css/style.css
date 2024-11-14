@@ -18,26 +18,6 @@ html {
     margin: 0;
     line-height: inherit;
   }
-/* Initial page style */
-body {
-  transform: translateX(0);
-  opacity: 1;
-  transition: transform 0.1s ease, opacity 0.5s ease;
-}
-
-/* Slide-out to the left */
-body.slide-out-left {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-/* Slide-out to the right */
-body.slide-out-right {
-  transform: translateX(100%);
-  opacity: 0;
-}
-
-
   
   a {
     color: inherit;
@@ -99,7 +79,8 @@ body.slide-out-right {
   .nav-container {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.1rem;
+   
     
   }
   
@@ -237,7 +218,7 @@ body.slide-out-right {
   }
   
   .section-heading {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 800;
     line-height: 1.5;
     color: #ffffff;
@@ -262,13 +243,7 @@ body.slide-out-right {
     border:solid 0.6px rgba(38, 39, 44,20);
   }
   
-  @media (max-width: 768px) {
-    .profile-image {
-      /* display: none; */
-      width: 6rem;
-    height: 6rem;
-    }
-  }
+ 
   .profile-image img {
     width: 100%;
     height: 100%;
@@ -276,7 +251,7 @@ body.slide-out-right {
   }
   
   .about-text {
-    flex-grow: 1;
+    flex-shrink: 1;
   }
   
   .about-text p {
@@ -302,7 +277,19 @@ body.slide-out-right {
     background-color: rgb(255, 255, 255);
     color: black
   }
-  
+  @media (max-width: 768px) {
+    .about-content{
+      font-size: 0.8rem;
+    }
+    .section-heading{
+      font-size: 1rem;
+    }
+    .profile-image {
+      display: none;
+      width: 6rem;
+      height: 6rem;
+    }
+  }
 /* Skills Section Styles */
 .skills-section {
     padding: 4rem 0;
