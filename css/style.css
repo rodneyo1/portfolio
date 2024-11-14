@@ -431,6 +431,10 @@ html {
 
   .skill-title {
       font-size: 0.65rem;
+      text-align: center;
+  }
+  .skill-text li{
+    text-align: center;
   }
 
   .skill-list {
