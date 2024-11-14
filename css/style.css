@@ -153,11 +153,11 @@ html {
   
     /* Hero Section Styles */
     .hero-section {
-        padding-top: 6rem;
+        
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 30vh;
+        margin-top: 7rem;
         background-color: #0a0a0a;
       }
       /* height: 80vh; */
@@ -278,16 +278,16 @@ html {
     color: black
   }
   @media (max-width: 768px) {
-    .about-content{
+    /* .about-content{
       font-size: 0.8rem;
     }
     .section-heading{
       font-size: 1rem;
-    }
+    } */
     .profile-image {
-      display: none;
-      width: 6rem;
-      height: 6rem;
+      /* display: none; */
+      width: 4rem;
+      height: 4rem;
     }
   }
 /* Skills Section Styles */
@@ -531,6 +531,9 @@ html {
   }
   .text-base:hover{
     color: rgb(188, 131, 56)
+  }
+  .about-text{
+    font-size: 1rem;
   }
   
   /* Contact Section Styles */

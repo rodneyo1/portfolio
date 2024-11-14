@@ -9,7 +9,7 @@ body {
     margin: 0;
     line-height: inherit;
     font-family: "JetBrains Mono";
-    font-size: 22px;
+    font-size: 1rem;
 }
 
 /* Contact section specific styles */
@@ -17,12 +17,17 @@ body {
     padding-top: 5rem;
     padding-bottom: 4rem;
     min-height: 75vh;
+    
+}
+ .inpage{
+    background-color: #0a0a0a;
 }
 
 .contact-container {
     max-width: 768px;
     margin: 0 auto;
     padding: 0 2rem;
+    margin-top: 3rem;
 }
 
 .contact-grid {
