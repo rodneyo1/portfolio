@@ -42,7 +42,7 @@ html {
   .header {
     position: fixed;
     top: 0;
-    width: 30rem;
+    width: 25rem;
     transition: top 0.3s;
     inset: 1rem 0 0;
     z-index: 40;
@@ -61,13 +61,7 @@ html {
     max-width: 1168px;
     
   }
-  @media (max-width: 768px) {
-    .header {
-        width: 24rem;
-        
-    }
-  }
-  
+ 
   .header-inner {
     display: flex;
     justify-content: space-between;
@@ -86,6 +80,7 @@ html {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    
   }
   
   .nav-links {
@@ -145,8 +140,11 @@ html {
       display: flex;
     }
   }
-  
-  @media (max-width: 768px) {
+    @media (max-width: 768px) {
+    .header {
+        width: 22rem;
+        
+    }
     .menu-toggle {
       display: contents;
     }
@@ -489,6 +487,7 @@ html {
     background-color: rgb(188, 131, 56);
     text-decoration: none;
     transition: background-color 0.2s;
+    margin-top: 2rem;
   }
   
   .portfolio-button:hover {
