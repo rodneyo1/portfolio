@@ -57,8 +57,9 @@ html {
     box-shadow: 0 2px 8px rgba(38, 38, 38, 0.1);
     backdrop-filter: blur(10px);
     transition: all 0.2s ease-in-out;
-    min-width: 769;
+    min-width: auto;
     max-width: 1168px;
+    
   }
   @media (max-width: 768px) {
     .header {
@@ -89,7 +90,7 @@ html {
   
   .nav-links {
     display: flex;
-    gap: 1rem;
+    gap: 0.2rem;
   }
   
   .nav-button {
@@ -207,7 +208,7 @@ html {
   /* About Section Styles */
   .about-section {
     flex:1;
-    margin-top: 2rem;
+    margin-top: 3rem;
     padding: 4rem 0;
   }
   
@@ -245,7 +246,9 @@ html {
   
   @media (max-width: 768px) {
     .profile-image {
-      display: none;
+      /* display: none; */
+      width: 6rem;
+    height: 6rem;
     }
   }
   .profile-image img {
@@ -340,7 +343,12 @@ html {
   .project-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 0.5rem;
+  }
+  @media(max-width:768px) {
+    .project-grid{
+        grid-template-columns: repeat(1, 1fr);
+    }
   }
   
   .project-item {

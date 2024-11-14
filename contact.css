@@ -82,6 +82,7 @@ body {
 }
 
 .submit-button {
+    font-family: "JetBrains Mono";
     background-color: rgb(188, 131, 56);
     color: #ffffff;
     padding: 0.75rem 1.5rem;
