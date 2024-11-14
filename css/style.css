@@ -41,15 +41,15 @@ html {
   /* Header Styles */
   .header {
     position: fixed;
-    top: 0;
+    top: 1rem;
     width: 25rem;
     transition: top 0.3s;
     inset: 1rem 0 0;
-    z-index: 40;
+    /* z-index: 10; */
     height: 60px;
     display: flex;
     justify-content: center;
-    background-color: rgb(15,15,15);
+    background-color: rgba(15,15,15,90%);
     border: 1px solid rgba(38,38,38,80);
     border-color: rgb(38, 39, 44);
     border-radius: 1.5rem; 
@@ -61,6 +61,11 @@ html {
     max-width: 1168px;
     
   }
+  @media (max-width: 768px) {
+    .header {
+        top: 0 !important; /* This will override the inline styles set by JavaScript */
+    }
+}
  
   .header-inner {
     display: flex;
@@ -86,7 +91,7 @@ html {
   
   .nav-links {
     display: flex;
-    gap: 1rem;
+    /* gap: 1rem; */
   }
   
   .nav-button {
@@ -277,6 +282,11 @@ html {
     background-color: rgb(255, 255, 255);
     color: black
   }
+  @media (min-width: 768px) {
+    .about-text .about-button{
+      margin-top: 4rem;
+    }
+  }
   @media (max-width: 768px) {
     /* .about-content{
       font-size: 0.8rem;
@@ -444,11 +454,12 @@ html {
   .project-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    gap: 2rem;
   }
   @media(max-width:768px) {
     .project-grid{
         grid-template-columns: repeat(1, 1fr);
+        gap: 0.5rem;
     }
   }
   
@@ -703,9 +714,9 @@ html {
     left: 0px;
   }
   
-  .top-0 {
+  /* .top-0 {
     top: 0px;
-  }
+  } */
   
   .h-full {
     height: 100%;
