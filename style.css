@@ -18,6 +18,26 @@ html {
     margin: 0;
     line-height: inherit;
   }
+/* Initial page style */
+body {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.1s ease, opacity 0.5s ease;
+}
+
+/* Slide-out to the left */
+body.slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* Slide-out to the right */
+body.slide-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+
   
   a {
     color: inherit;
@@ -304,7 +324,7 @@ html {
 
 .tech-icons-grid {
     display: grid;
-    grid-template-columns: repeat(7, auto);
+    grid-template-columns: repeat(5, auto);
     gap: 2rem;
     place-items: center;
     margin: 0 auto;
@@ -313,15 +333,15 @@ html {
 
 @media (max-width: 768px) {
     .tech-icons-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.5rem;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.5rem;
     }
 }
 
 @media (max-width: 480px) {
     .tech-icons-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.5rem;
     }
 }
 
@@ -429,9 +449,11 @@ html {
   
   .project-image {
     width: 100%;
-    height: 12rem;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
   }
+  
   
   .project-title {
     font-size: 1rem;
