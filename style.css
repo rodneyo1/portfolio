@@ -516,6 +516,9 @@ body.slide-out-right {
     background-color: rgb(255, 255, 255);
     color: black;
   }
+  .text-base:hover{
+    color: rgb(188, 131, 56)
+  }
   
   /* Contact Section Styles */
   .contact-section {
