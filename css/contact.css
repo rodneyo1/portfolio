@@ -14,10 +14,13 @@ body {
 
 /* Contact section specific styles */
 .contact-section {
-    padding-top: 5rem;
+    padding-top: 1rem;
     padding-bottom: 4rem;
-    min-height: 75vh;
+    /* min-height: 75vh; */
     
+}
+.inhome-page{
+    padding-bottom: 1rem;
 }
  .inpage{
     background-color: #0a0a0a;
@@ -57,10 +60,21 @@ body {
     padding: 2rem;
     border-radius: 0.5rem;
     border: 1px solid rgb(38, 39, 44);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  @media (max-width: 480px) {
+    .contact-form {
+        max-width:70% ;
+    }
+     .incontactpage{
+        max-width:70%
+    }
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .form-label {
@@ -97,7 +111,10 @@ body {
     cursor: pointer;
     transition: all 0.2s;
 }
-
+/* contact info in home page */
+.con-inhome{
+    background-color: rgb(15,15,15);
+}
 .submit-button:hover {
     background-color: #ffffff;
     color: #000000;
@@ -108,7 +125,7 @@ body {
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
-    color: #a0a0a0;
+    color: #ffffff;
     font-size: 1rem;
 }
 
@@ -121,8 +138,9 @@ body {
 }
 
 .contact-heading {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 700;
+    padding-top: 2rem;
     margin-bottom: 1rem;
     text-align: center;
 }
