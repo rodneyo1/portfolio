@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lem-in — Rodney Ochieng</title>
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('portfolio-theme') || 'light');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html"    class="nav-button">Home</a></li>
+          <li><a href="about.html"    class="nav-button">About</a></li>
+          <li><a href="projects.html" class="nav-button">Projects</a></li>
+          <li><a href="contact.html"  class="nav-button">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="project-page">
+      <div class="container">
+
+        <a href="projects.html" class="project-page__back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          Back to projects
+        </a>
+
+        <div class="project-page__header">
+          <h1 class="project-page__title">Lem-in</h1>
+          <div class="project-page__meta">
+            <span class="tag tag--primary">Go</span>
+            <span class="tag">BFS</span>
+            <span class="tag">Graph Theory</span>
+            <span class="tag">Dynamic Programming</span>
+            <span class="tag">Algorithms</span>
+            <a href="https://github.com/rodneyo1/lem-in" target="_blank" rel="noopener noreferrer" class="project-page__github">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <img src="images/lemin.png" alt="Lem-in project screenshot" class="project-page__image" />
+
+        <div class="project-page__body">
+
+          <div class="prose-section">
+            <h2>Overview</h2>
+            <p>
+              Lem-in is the hardest algorithmic problem I've tackled in a project setting. The premise is deceptively
+              simple: given a colony of ants at a start room and a network of tunnels connecting rooms, move all the
+              ants to the end room in the fewest possible turns. One ant per room, one ant per tunnel per turn.
+            </p>
+            <p>
+              What looks like a straightforward pathfinding problem turns out to sit at the intersection of graph theory,
+              network flow optimisation, and multi-agent scheduling. Getting a correct solution is hard.
+              Getting an optimal one is harder. The project is implemented in Go using only the standard library.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Why BFS Alone Isn't Enough</h2>
+            <p>
+              My first instinct was BFS to find the shortest path, then send all ants down it. That works for one ant.
+              For ten ants on a three-room path, they queue up and you waste seven turns waiting. The better strategy
+              is to find multiple non-overlapping paths and distribute ants across them in parallel — but deciding
+              how many paths to use, and which combination, is a genuinely difficult optimisation problem.
+            </p>
+            <p>
+              Consider two options: one short path of length 3, or two longer paths of length 5 and 6.
+              For two ants, the single short path wins. For twenty ants, the two longer paths win because parallelism
+              outweighs the length penalty. The optimal choice depends on both the graph structure and the ant count,
+              and no greedy rule reliably picks the right one. You have to evaluate candidates.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Max-Flow & Path Selection</h2>
+            <p>
+              The path selection problem is structurally a max-flow problem. Each room has a capacity of one
+              (a unit of flow), each tunnel carries one ant per turn. To maximise throughput, you want the set of
+              augmenting paths — paths that share no intermediate rooms — that minimises total turns for n ants.
+            </p>
+            <p>
+              I implemented an Edmonds-Karp style approach: BFS to find shortest augmenting paths, then a simulation
+              to calculate the total turns each candidate set of paths would take for the given ant count.
+              The turn calculation itself requires careful simulation — ants enter paths at different times as earlier
+              ants clear the start, and the last ant to arrive at the end determines the total turn count.
+              Finding the minimum across candidate path sets is where dynamic programming discipline matters:
+              memoising intermediate results avoids recomputing the same simulations repeatedly.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Multi-Agent Coordination</h2>
+            <p>
+              Once the optimal path set is chosen, the movement simulation adds another layer of complexity.
+              Each turn, every ant moves one room forward along its assigned path — but you can't place two ants
+              in the same room simultaneously (except the start and end rooms, which have unlimited capacity).
+              Ants on different paths might converge on a shared intermediate room; ants on the same path
+              must maintain spacing.
+            </p>
+            <p>
+              Getting the turn-by-turn output right — printing each ant's move in the correct format,
+              accounting for ants that haven't entered yet, and correctly sequencing entries as the start
+              room frees up — took careful simulation logic with a scheduler that processes all ants per turn
+              in order of their position along their path.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Challenges</h2>
+            <p>
+              Input parsing was a problem in itself. The input format mixes room definitions (name and coordinates),
+              tunnel definitions, and comment lines, with special markers for the start and end rooms.
+              Invalid inputs — malformed coordinates, missing start or end rooms, duplicate room names, tunnels
+              referencing non-existent rooms — all needed to be caught and reported before the algorithm ran.
+              Cycle detection and disconnected-component detection required additional graph traversal passes.
+            </p>
+            <p>
+              The edge cases in path selection caused the most debugging time. Graphs where the only viable
+              route passes through a single bottleneck room (making parallelism impossible), graphs with many
+              paths of equal length, and graphs where the start and end rooms are directly connected
+              all produced edge-case behaviours in the flow algorithm that required specific handling.
+            </p>
+            <p>
+              Performance was also a concern on large inputs — graphs with hundreds of rooms and thousands of ants.
+              Profiling revealed that the simulation loop for path evaluation was the bottleneck, and pruning
+              obviously suboptimal candidate path sets early brought the runtime to an acceptable level.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>What I Took Away</h2>
+            <p>
+              Lem-in taught me that algorithmic problems in the real world rarely fall cleanly into one category.
+              This touched BFS, max-flow, dynamic programming, and simulation — and the skill was recognising
+              which tool applied at which layer of the problem. It also reinforced the habit of building
+              incrementally: solve the single-ant case first, then multi-ant on a single path, then multi-path,
+              then optimise. Skipping steps just produces bugs that are impossible to isolate.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer__links">
+          <a href="https://twitter.com/rodney_otieno" class="footer__icon" aria-label="Twitter/X">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          </a>
+          <a href="mailto:rodneyotieno27@gmail.com" class="footer__icon" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+          <a href="https://github.com/rodneyo1" class="footer__icon" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/rodney-otieno/" class="footer__icon" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+        <div class="footer__quote">Face the Tech Debt, Build the Future.</div>
+        <div class="footer__meta">
+          <span>&copy; <span class="footer-year"></span></span><span>&bull;</span>
+          <a href="index.html">Rodney Ochieng</a>
+          <span>&bull;</span><span>All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

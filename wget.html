@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wget — Rodney Ochieng</title>
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('portfolio-theme') || 'light');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html"    class="nav-button">Home</a></li>
+          <li><a href="about.html"    class="nav-button">About</a></li>
+          <li><a href="projects.html" class="nav-button">Projects</a></li>
+          <li><a href="contact.html"  class="nav-button">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="project-page">
+      <div class="container">
+
+        <a href="projects.html" class="project-page__back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          Back to projects
+        </a>
+
+        <div class="project-page__header">
+          <h1 class="project-page__title">Wget</h1>
+          <div class="project-page__meta">
+            <span class="tag tag--primary">Go</span>
+            <span class="tag">Concurrency</span>
+            <span class="tag">Networking</span>
+            <span class="tag">HTTP</span>
+            <span class="tag">Goroutines</span>
+            <a href="https://github.com/rodneyo1/wget-go" target="_blank" rel="noopener noreferrer" class="project-page__github">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <img src="images/wget.png" alt="Wget project screenshot" class="project-page__image" />
+
+        <div class="project-page__body">
+
+          <div class="prose-section">
+            <h2>Overview</h2>
+            <p>
+              Wget is a ground-up clone of the GNU <code>wget</code> command-line utility, written in Go.
+              I built it to understand how download tools actually work beneath the familiar interface —
+              what happens when you type a URL into a terminal and a file appears. The answer is more complex
+              than it looks: HTTP negotiation, I/O streaming, concurrent request management, recursive HTML crawling,
+              and careful state tracking across a potentially large and cyclic web of resources.
+            </p>
+            <p>
+              The tool supports single-file downloads, batch downloads from a file list, website mirroring,
+              bandwidth throttling, background execution, and real-time progress output with transfer rates
+              and estimated completion time.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Concurrency & Semaphores</h2>
+            <p>
+              Downloading multiple files simultaneously is where Go's concurrency model earns its reputation.
+              Spinning up a goroutine per download is trivial — but unbounded concurrency is a problem.
+              Hit a server with a hundred simultaneous connections and you'll get rate-limited or banned.
+              Saturate your own network and every download slows to a crawl.
+            </p>
+            <p>
+              The solution is a semaphore: a buffered channel in Go that acts as a slot pool. Before
+              a download goroutine can start, it must acquire a slot from the channel. When the pool is full,
+              new goroutines block until a running one finishes and releases its slot. This caps active
+              concurrency at a fixed limit regardless of how many downloads are queued — the same pattern
+              used in production HTTP clients, worker pools, and connection managers.
+            </p>
+            <p>
+              Coordinating progress output across concurrent goroutines required additional synchronisation.
+              Each goroutine writes to its own line in the terminal, and a mutex guards access to the output
+              to prevent interleaved writes from different goroutines mangling the display.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Website Mirroring</h2>
+            <p>
+              Mirror mode — <code>--mirror</code> — was the most architecturally complex feature.
+              To download a full website, you start at the root URL, download the HTML, parse it to extract
+              all linked resources (<code>&lt;a&gt;</code>, <code>&lt;link&gt;</code>, <code>&lt;img&gt;</code>,
+              <code>&lt;script&gt;</code>, CSS <code>url()</code> references), download those, parse any
+              further HTML you find, and repeat — recursively, until there's nothing new to download.
+            </p>
+            <p>
+              The key challenge is that the web is a graph, not a tree, and graphs have cycles.
+              Without careful tracking of already-visited URLs, the crawler loops forever.
+              I maintained a concurrent-safe visited set (a map behind a mutex) that's checked before
+              enqueuing any URL. Normalising URLs before lookup — stripping fragments, resolving redirects,
+              canonicalising trailing slashes — prevents the same resource from being downloaded twice
+              under different-looking URLs.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Offline Link Conversion</h2>
+            <p>
+              After mirroring, the downloaded site needs to work offline. That means rewriting every absolute
+              URL in every HTML and CSS file to point to the corresponding local path instead of the remote server.
+              A link to <code>https://example.com/assets/style.css</code> in a page saved at
+              <code>mirror/example.com/index.html</code> needs to become <code>../assets/style.css</code>
+              — a relative path computed from the downloaded page's location to the downloaded asset's location.
+            </p>
+            <p>
+              Getting this right across nested directory structures, protocol-relative URLs, and CSS
+              <code>url()</code> references required building a proper URL resolution and relativisation
+              pipeline. An off-by-one in the directory depth calculation produces broken links that are
+              easy to miss until you open the mirrored site in a browser.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Bandwidth Throttling</h2>
+            <p>
+              The <code>--rate-limit</code> flag caps total download throughput across all concurrent transfers.
+              Implementing this precisely while maintaining concurrency required something close to a token bucket:
+              a goroutine that periodically adds tokens (bytes of allowance) to a shared bucket, and a reader
+              wrapper that consumes tokens as it reads from the HTTP response body, sleeping when the bucket is empty.
+            </p>
+            <p>
+              The tricky part is distributing the rate limit fairly across concurrent downloads so that no single
+              download monopolises the budget. The implementation divides the configured limit by the number
+              of active downloads and adjusts dynamically as downloads start and finish.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Challenges</h2>
+            <p>
+              Relative URL resolution was the source of the most bugs. A URL like <code>../../assets/img.png</code>
+              means something different depending on the path of the page it appears in, and computing the
+              correct absolute URL requires careful base URL handling. Protocol-relative URLs
+              (<code>//cdn.example.com/lib.js</code>), anchor-only links (<code>#section</code>),
+              and <code>data:</code> URIs all need to be identified and excluded from the download queue.
+            </p>
+            <p>
+              HTTP redirects added another layer. A URL might redirect to a different domain, a different path,
+              or back to a URL already in the visited set. Following redirects correctly while updating the
+              canonical URL in the visited set (so the redirect target isn't downloaded again via a direct link)
+              required careful handling at each step in the redirect chain.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>What I Took Away</h2>
+            <p>
+              This project made the internals of tools I use every day concrete. Every HTTP client library,
+              every download manager, every web scraper is solving the same set of problems: concurrency control,
+              URL normalisation, cycle detection, streaming I/O. Understanding those fundamentals makes me
+              a better user of the abstractions that sit on top of them, and a better debugger when they
+              behave unexpectedly.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer__links">
+          <a href="https://twitter.com/rodney_otieno" class="footer__icon" aria-label="Twitter/X">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          </a>
+          <a href="mailto:rodneyotieno27@gmail.com" class="footer__icon" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+          <a href="https://github.com/rodneyo1" class="footer__icon" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/rodney-otieno/" class="footer__icon" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+        <div class="footer__quote">Face the Tech Debt, Build the Future.</div>
+        <div class="footer__meta">
+          <span>&copy; <span class="footer-year"></span></span><span>&bull;</span>
+          <a href="index.html">Rodney Ochieng</a>
+          <span>&bull;</span><span>All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

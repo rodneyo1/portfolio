@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netfix — Rodney Ochieng</title>
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('portfolio-theme') || 'light');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html"    class="nav-button">Home</a></li>
+          <li><a href="about.html"    class="nav-button">About</a></li>
+          <li><a href="projects.html" class="nav-button">Projects</a></li>
+          <li><a href="contact.html"  class="nav-button">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="project-page">
+      <div class="container">
+
+        <a href="projects.html" class="project-page__back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          Back to projects
+        </a>
+
+        <div class="project-page__header">
+          <h1 class="project-page__title">Netfix</h1>
+          <div class="project-page__meta">
+            <span class="tag tag--primary">Python</span>
+            <span class="tag">Django</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">Full-Stack</span>
+            <a href="https://github.com/rodneyo1/netfix" target="_blank" rel="noopener noreferrer" class="project-page__github">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <img src="images/netfix.png" alt="Netfix project screenshot" class="project-page__image" />
+
+        <div class="project-page__body">
+
+          <div class="prose-section">
+            <h2>Overview</h2>
+            <p>
+              Netfix is a service marketplace platform built with Django and Python. The premise: tradespeople and
+              service companies register on the platform, list their services by category (plumbing, carpentry,
+              painting, electrical work, and others), and customers browse, request, and track those services.
+              Think of it as a lightweight Angi or Thumbtack — a two-sided marketplace with distinct user types,
+              separate registration flows, and different capabilities on each side.
+            </p>
+            <p>
+              I built it as my intentional introduction to Python and Django — deliberately choosing a
+              batteries-included framework after having built web backends from scratch in Go, so I could
+              compare the experience and understand what the framework was doing for me.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Django After Go: A Deliberate Contrast</h2>
+            <p>
+              Coming to Django after writing raw <code>net/http</code> handlers in Go was a genuinely
+              illuminating experience. In Go, every piece of middleware, every route, every database query
+              is explicit. In Django, an enormous amount happens automatically: the ORM translates Python
+              objects to SQL, the admin panel generates itself from your models, form validation runs in
+              the framework before your view code even executes.
+            </p>
+            <p>
+              The trade-off is transparency. Django's magic is powerful when you understand what's underneath
+              it — and confusing when you don't. Having already built the same primitives by hand, I could
+              read a Django view and understand exactly what the framework was abstracting at each line.
+              That made me a faster Django developer from day one, and a better one when things went wrong.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Architecture: Three Apps, Two User Types</h2>
+            <p>
+              The project is structured as three Django applications: <code>users</code> handles authentication,
+              registration, and profiles for both user types; <code>services</code> handles the marketplace
+              logic — service listings, categories, and service requests; <code>main</code> holds shared
+              templates and utilities used across both.
+            </p>
+            <p>
+              The two-user-type model — Company and Customer — was the most interesting design challenge.
+              Both types share a base user model for authentication, but have different profile data,
+              different views available to them, and different permissions throughout the app.
+              Companies create and manage service listings; customers browse and submit requests.
+              Each type has its own registration form and profile page.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Business Logic at the Model Layer</h2>
+            <p>
+              The most technically interesting constraint in the spec was the field-of-work restriction:
+              a company can only offer services within its declared trade category, unless it registered
+              as an "All in One" company, in which case it can offer any category. Simple enough in prose —
+              genuinely fiddly to enforce correctly in code.
+            </p>
+            <p>
+              I pushed this validation down to the model layer rather than scattering it across views.
+              Django's model <code>clean()</code> method runs before every save, so the constraint is
+              enforced regardless of which view or form triggers the operation. This is the right place
+              for business rules that must hold as invariants across the entire application —
+              not in a view that might be bypassed by a direct model save elsewhere.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Relational Data Modelling</h2>
+            <p>
+              The data model has several interesting relationships. A service belongs to a company and
+              has a category. A service request belongs to a customer and references a specific service,
+              creating a three-way relationship that needs to track status (pending, accepted, completed),
+              timestamps, and eventually a cost calculation. The "most requested" ranking requires
+              aggregating request counts per service efficiently.
+            </p>
+            <p>
+              Learning to use Django's ORM annotation and aggregation API properly made a significant
+              difference here. A naïve implementation that fetches all requests and counts them in Python
+              produces an N+1 query problem that becomes visible with any meaningful amount of data.
+              Using <code>annotate(Count('requests'))</code> and sorting in the database keeps it to a
+              single query regardless of scale.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Challenges</h2>
+            <p>
+              Permission enforcement was the most persistent source of bugs. Django's built-in permission
+              system handles basic cases well, but the Company/Customer distinction required custom
+              decorator logic: certain views must be unreachable by companies, others by customers,
+              and the error responses need to be informative rather than generic 403s. Getting every
+              access path covered — including the Django admin, direct URL access, and form submissions —
+              required systematic testing of each protected endpoint with each user type.
+            </p>
+            <p>
+              Template inheritance was another area that required discipline. Django's template system
+              is powerful but verbose, and it's easy to duplicate logic across templates that should share
+              a base. I refactored the template tree twice to eliminate repetition — once for the overall
+              page structure, and once for the service card component that appears in multiple views.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>What I Took Away</h2>
+            <p>
+              Netfix gave me a solid foundation in Python and Django, and a clear-eyed view of the
+              trade-offs between framework-heavy and framework-light development. Frameworks accelerate
+              the parts they're designed for and add friction everywhere else. Knowing when to lean on
+              Django and when to work around it — and understanding the underlying mechanics well enough
+              to make that call confidently — is the real skill. This project gave me that, and a
+              genuine appreciation for Python as a language along the way.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer__links">
+          <a href="https://twitter.com/rodney_otieno" class="footer__icon" aria-label="Twitter/X">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          </a>
+          <a href="mailto:rodneyotieno27@gmail.com" class="footer__icon" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+          <a href="https://github.com/rodneyo1" class="footer__icon" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/rodney-otieno/" class="footer__icon" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+        <div class="footer__quote">Face the Tech Debt, Build the Future.</div>
+        <div class="footer__meta">
+          <span>&copy; <span class="footer-year"></span></span><span>&bull;</span>
+          <a href="index.html">Rodney Ochieng</a>
+          <span>&bull;</span><span>All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

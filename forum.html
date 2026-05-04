@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forum — Rodney Ochieng</title>
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('portfolio-theme') || 'light');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html"    class="nav-button">Home</a></li>
+          <li><a href="about.html"    class="nav-button">About</a></li>
+          <li><a href="projects.html" class="nav-button">Projects</a></li>
+          <li><a href="contact.html"  class="nav-button">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="project-page">
+      <div class="container">
+
+        <a href="projects.html" class="project-page__back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          Back to projects
+        </a>
+
+        <div class="project-page__header">
+          <h1 class="project-page__title">Forum</h1>
+          <div class="project-page__meta">
+            <span class="tag tag--primary">Go</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Docker</span>
+            <span class="tag">HTTP</span>
+            <span class="tag">Auth</span>
+            <a href="https://github.com/rodneyo1/forum" target="_blank" rel="noopener noreferrer" class="project-page__github">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <img src="images/forum.png" alt="Forum project screenshot" class="project-page__image" />
+
+        <div class="project-page__body">
+
+          <div class="prose-section">
+            <h2>Overview</h2>
+            <p>
+              I built Forum as my deep dive into web fundamentals before I was ready to reach for frameworks.
+              The goal was simple: understand what frameworks are actually doing for me before letting them do it.
+              That meant writing everything from scratch — the HTTP server, the auth system, the database layer,
+              and even the single-page app architecture on the frontend — using only the standard library on both ends.
+            </p>
+            <p>
+              The result is a Reddit-style discussion platform: users register, create posts under categories,
+              comment, and like or dislike content. Filtering by category, by your own posts, or by posts you've liked
+              is all handled without a page reload. It's containerised with Docker and backed by SQLite.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Backend: HTTP & Routing in Go</h2>
+            <p>
+              The entire backend runs on Go's <code>net/http</code> package — no Gin, no Echo, no router library.
+              Writing raw HTTP handlers forces you to think carefully about things that frameworks handle silently:
+              method checking, path parsing, middleware chaining, consistent error responses, and proper HTTP status codes.
+              Every 404, 405, and 500 is deliberate and handled explicitly.
+            </p>
+            <p>
+              Middleware for authentication — checking that a valid session cookie exists before serving protected routes —
+              is written as a plain handler wrapper. Once I built it myself, every authentication middleware
+              I've used in frameworks since has made immediate sense.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Authentication: Sessions, Cookies & Bcrypt</h2>
+            <p>
+              Auth was the most instructive part of the project. The full lifecycle: a user registers with an email and
+              password. The password is hashed with <code>bcrypt</code> before touching the database — never stored in
+              plaintext. On login, the server generates a UUID session token, stores it in SQLite alongside the user ID
+              and an expiration timestamp, then sends it to the client as an <code>HttpOnly</code> cookie.
+            </p>
+            <p>
+              On every subsequent protected request, the server reads the cookie, looks up the token in the sessions table,
+              checks expiry, and either proceeds or redirects to login. Only one active session is allowed per user —
+              logging in from a new device invalidates the previous session. Building this by hand made JWT,
+              OAuth, and session libraries genuinely transparent to me; I know exactly what problem they're solving.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Database: SQLite & Schema Design</h2>
+            <p>
+              The data layer is SQLite accessed through Go's <code>database/sql</code> interface with raw queries —
+              no ORM. I designed the schema from scratch using entity relationship diagrams before writing a line of SQL:
+              users, posts, categories, comments, likes, and sessions all needed to relate correctly, and getting the
+              foreign key structure right upfront saved significant pain later.
+            </p>
+            <p>
+              Writing raw SQL — joins across four tables to render a post with its comment count, category, and
+              like/dislike totals — taught me things about query planning and indexing that an ORM would have hidden.
+              It also forced me to handle SQL errors explicitly at every call site rather than having them silently swallowed.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Frontend: A SPA Without a Framework</h2>
+            <p>
+              The frontend is the part I'm most proud of. It's a genuine single-page application — one HTML shell,
+              client-side routing, and dynamic rendering — built entirely in vanilla JavaScript. No React, no Vue, no
+              module bundler. Just the DOM API and <code>fetch</code>.
+            </p>
+            <p>
+              Client-side routing intercepts link clicks and <code>popstate</code> events, updates the URL with the
+              History API, then fetches data and re-renders the relevant section of the page. Managing UI state by hand —
+              knowing when to invalidate a cached view, how to handle loading and error states, how to keep the URL
+              and the rendered content in sync — gave me a concrete understanding of what React's component model,
+              state management, and reconciler are actually doing underneath the abstraction.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>Challenges</h2>
+            <p>
+              The trickiest bugs were around concurrency. Go's HTTP server handles each request in its own goroutine,
+              which means multiple requests can hit the database simultaneously. SQLite in WAL mode handles concurrent
+              reads fine, but write contention required careful transaction scoping to avoid data races —
+              particularly around the like/dislike counters where two users could update the same row at the same moment.
+            </p>
+            <p>
+              Cookie scoping was another source of bugs. Getting the path, domain, and <code>SameSite</code> attributes
+              right so that cookies are sent on exactly the requests you expect — and not on others — took more iteration
+              than I anticipated. Session expiry edge cases (expired token present, token missing, token valid but user
+              deleted) each needed distinct handling to avoid confusing redirects.
+            </p>
+            <p>
+              On the frontend, the hardest problem was preventing XSS. User-generated content rendered into the DOM
+              needs to be escaped every time — using <code>textContent</code> instead of <code>innerHTML</code> where
+              possible, and sanitising carefully where HTML rendering is unavoidable.
+            </p>
+          </div>
+
+          <div class="prose-section">
+            <h2>What I Took Away</h2>
+            <p>
+              Building a full web application without any framework — from the TCP socket up to the DOM —
+              is the most educational thing I've done as a developer. Every abstraction I use now, I understand.
+              I know what a session middleware is doing, I know why React exists, I know what an ORM is hiding.
+              That foundation changes how I approach every project that comes after it.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer__links">
+          <a href="https://twitter.com/rodney_otieno" class="footer__icon" aria-label="Twitter/X">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          </a>
+          <a href="mailto:rodneyotieno27@gmail.com" class="footer__icon" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+          <a href="https://github.com/rodneyo1" class="footer__icon" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/rodney-otieno/" class="footer__icon" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+        <div class="footer__quote">Face the Tech Debt, Build the Future.</div>
+        <div class="footer__meta">
+          <span>&copy; <span class="footer-year"></span></span><span>&bull;</span>
+          <a href="index.html">Rodney Ochieng</a>
+          <span>&bull;</span><span>All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

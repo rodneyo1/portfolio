@@ -1,0 +1,138 @@
+# ============================================================
+# Portfolio Configuration
+# Edit this file to update your portfolio without touching HTML.
+#
+# NOTE: This file is fetched by JavaScript at runtime.
+# It requires a local HTTP server (not file:// protocol).
+# Quick start: python3 -m http.server 8000
+# ============================================================
+
+profile:
+  name: Rodney Ochieng
+  title: Full-Stack Developer
+  location: Nairobi, Kenya
+  bio: >
+    I build fast, reliable software — web servers, APIs, and CLI tools.
+    Primarily in Go, Rust, and Python, with JavaScript for the frontend.
+    Open to contract work, side projects, and interesting problems.
+  photo: images/profile2.png
+  email: rodneyotieno27@gmail.com
+  github: rodneyo1
+  twitter: rodney_otieno
+  linkedin: rodney-otieno
+  medium: rodneyotieno27
+  devto: rodneyo1
+  codewars: rodneyo1
+
+# Tech icons shown in the stack section.
+# Slugs come from simple-icons: https://simpleicons.org
+icons:
+  - { name: Go,         slug: go }
+  - { name: Rust,       slug: rust }
+  - { name: Python,     slug: python }
+  - { name: JavaScript, slug: javascript }
+  - { name: React,      slug: react }
+  - { name: Docker,     slug: docker }
+  - { name: Git,        slug: git }
+  - { name: Linux,      slug: linux }
+
+# Skill categories shown in the stack grid.
+stack:
+  - category: Back-end
+    skills: [Go, Rust, Python, Node.js]
+  - category: Front-end
+    skills: [JavaScript, React, Tailwind CSS, HTML/CSS]
+  - category: Tools
+    skills: [Git, Docker, Linux, Figma]
+
+# Projects — add or remove freely.
+# Set featured: true to show on the homepage preview (max ~3 recommended).
+# image: path relative to site root, or a full URL.
+projects:
+  - title: Forum
+    description: >
+      A full-stack single-page application built from scratch in Go and vanilla JavaScript —
+      no frameworks on either end. Implements the full auth lifecycle: registration, bcrypt
+      password hashing, UUID session tokens stored in cookies with expiration. The backend
+      covers SQLite schema design with entity relationships, HTTP routing, CRUD operations,
+      and Docker containerisation. On the frontend, the SPA architecture handles client-side
+      routing and dynamic rendering without React or any other library — just the platform.
+    image: images/forum.png
+    url: https://github.com/rodneyo1/forum
+    page: forum.html
+    tags: [Go, SQLite, JavaScript, Docker, HTTP, Auth]
+    featured: true
+
+  - title: Lem-in
+    description: >
+      An ant colony pathfinding simulator that pushes algorithmic thinking to its limits.
+      Given an arbitrary graph of rooms and tunnels, the program must route n ants from
+      source to sink in the minimum number of turns — a problem that sits at the intersection
+      of BFS shortest-path search, max-flow / min-cut optimisation, and multi-agent scheduling.
+      The real difficulty is in coordinating simultaneous movement across non-conflicting paths:
+      each tunnel handles one ant per turn, each room holds one ant at a time. Implemented in
+      Go with full input validation, cycle detection, and disconnected-graph handling.
+    image: images/lemin.png
+    url: https://github.com/rodneyo1/lem-in
+    page: lemin.html
+    tags: [Go, BFS, Graph Theory, Dynamic Programming, Algorithms]
+    featured: true
+
+  - title: Pacman
+    description: >
+      A faithful Pac-Man recreation built in vanilla JavaScript with zero frameworks and no
+      canvas element — rendered entirely through the DOM. The technical constraint forces a
+      deep understanding of browser rendering: layout, paint, and composite phases all matter
+      when the target is a locked 60 FPS with no frame drops. Achieved via a tight
+      requestAnimationFrame loop, minimal layer usage, and continuous profiling with DevTools.
+      Includes ghost AI, collision detection, pause/restart mechanics, score tracking, and lives.
+    image: images/pacman.png
+    url: https://github.com/rodneyo1/pacman
+    page: pacman.html
+    tags: [JavaScript, DOM, Game Dev, Performance, 60fps]
+    featured: true
+
+  - title: Wget
+    description: >
+      A ground-up clone of the GNU wget utility written in Go. Downloads single files or
+      entire websites, parsing HTML and CSS to recursively discover and fetch linked resources
+      while preserving directory structure. Concurrent downloads are managed with goroutines
+      and semaphores to control parallelism without overwhelming the host. Also implements
+      bandwidth throttling with precise timing, background execution with log output, and
+      offline link conversion — rewriting absolute URLs to local relative paths after mirroring.
+    image: images/wget.png
+    url: https://github.com/rodneyo1/wget-go
+    page: wget.html
+    tags: [Go, Concurrency, Networking, HTTP, Goroutines]
+
+  - title: Netfix
+    description: >
+      A service marketplace platform built with Django and Python. Companies register and
+      list services by trade (plumbing, carpentry, painting, etc.); customers browse, request,
+      and track them. Covers the full Django stack — models, views, URL routing, form handling,
+      template rendering, and database migrations — with two distinct user registration flows,
+      relational data modelling, and business logic constraints enforced at the model layer.
+    image: images/netfix.png
+    url: https://github.com/rodneyo1/netfix
+    page: netfix.html
+    tags: [Python, Django, SQLite, Full-Stack]
+
+# ── Optional sections ────────────────────────────────────────
+# Set enabled: true and fill in items to display a section.
+
+sections:
+  experience:
+    enabled: false
+    items:
+      # Uncomment and fill in to add work history entries:
+      # - role: Software Engineer
+      #   company: Acme Corp
+      #   period: 2023 – Present
+      #   description: Built microservices in Go and deployed via Docker.
+
+  testimonials:
+    enabled: false
+    items:
+      # - quote: Rodney shipped our MVP ahead of schedule.
+      #   author: Jane Doe
+      #   role: CTO, Startup X
